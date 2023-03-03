@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from '../pages/home'
+import SearchFunction from '../pages/home'
 import About from '../pages/about'
 // the header
 export default function Navigation () {
@@ -42,7 +42,7 @@ export default function Navigation () {
         </div>
 
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<SearchFunction />} />
             <Route path="/about" element={<About />} />
         </Routes>
         </>

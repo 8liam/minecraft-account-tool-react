@@ -239,3 +239,11 @@ h1 {
 .row {
   width: 100%;
 }
+
+
+span.warning {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
