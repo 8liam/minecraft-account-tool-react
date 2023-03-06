@@ -247,3 +247,23 @@ span.warning {
     font-size: 1.2em;
 }
 
+.bordered-box-rounded {
+    background-color:#0b0a0c;
+    border-radius: 3%;
+    border-color: #79ca864a;
+    border-style:solid;
+    border-width: 0.2px;
+    margin-inline: 0px;
+    text-align: center;
+    padding: 20px;
+}
+
+.bordered-box-rounded code {
+    color: #79ca86;
+    
+}
+
+.bordered-box-rounded canvas {
+    
+    margin: 20px;
+}
