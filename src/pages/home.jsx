@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-
+import ReactSkinview3d from "react-skinview3d"
+import { AiOutlineCopy } from "react-icons/ai";
 
 
 export default function SearchFunction () {
@@ -10,7 +10,9 @@ export default function SearchFunction () {
     const [userId, setUserId] = useState("");
     const [username, setUsername] = useState("");
     const [error, setError] = useState(null);
-    
+    const [skinBase64, setSkinBase64] = useState("");
+    const [skinUrl, setSkinUrl] = useState("");
+
     const handleClick = () => {
         const input = document.getElementById("input");
         setText(input.value);
@@ -25,12 +27,30 @@ export default function SearchFunction () {
         .then(data => {
             setUserId(data.id);
             setUsername(data.name);
+            return fetch(`https://cors-anywhere.herokuapp.com/https://sessionserver.mojang.com/session/minecraft/profile/${data.id}`);
+        })
+        .then(skinresponse => {
+            if (!skinresponse.ok) {
+                throw new Error(`Error retreiving skin for ${text}`);
+            }
+            return skinresponse.json();
+        })
+        .then(skindata => {
+            const base64String = skindata.properties[0].value;
+            const jsonString = atob(base64String);
+            const jsonObject = JSON.parse(jsonString);
+            console.log(jsonObject);
+            setSkinBase64(skindata.properties[0].value);
+            setSkinUrl(jsonObject.textures.SKIN.url);
+
         })
         .catch(error => {
             setError(`Username ${input.value} not found.`)
             setUserId(null);
             setUsername(null);
+            setSkinBase64(null);
         })
+
         .finally(() => setIsLoading(false));
         
         
@@ -52,13 +72,28 @@ export default function SearchFunction () {
                         </div>
                     </div>
                     <div className="col-md-6 info" id="history">
+                    
+                    
                         {isLoading && <h1>Loading...</h1>}
                         {!isLoading && error && <h1><span className="warning">{error}</span></h1>}
                         {!isLoading && userId && (
                         <>
-                        <h1>Username: <b>{username}</b></h1>
-                        <h1>User ID: <b>{userId}</b></h1>
-                        <code><span className='warning'>As of September 13th 2022, Mojang have removed public access to Minecraft’s Username History API endpoint to improve the player experience.</span></code>
+                        <div className="bordered-box-rounded">
+                        <h1>{username}</h1>
+                        <ReactSkinview3d
+                            className="viewer"
+                            skinUrl={skinUrl}
+                            height={200}
+                            width={100}
+                            onReady={({ viewer }) => {
+                              // Add an animation
+                              // Enabled auto rotate
+                                viewer.autoRotate = false;
+                            }}
+                            />
+                            <hr></hr>
+                        <code>{userId} <AiOutlineCopy style={{cursor: 'pointer'}}onClick={() => {navigator.clipboard.writeText(userId)}}/></code>
+                    </div>
                         </> 
                         )}
                         
