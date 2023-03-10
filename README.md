@@ -1,5 +1,5 @@
-# Minecraft Account History Tool React
-A Minecraft account history tool, displaying account skin, ~~previous names~~, and capes.
+# Minecraft Account Tool
+A Minecraft account history tool, displaying account username, user id, skin, ~~previous names~~, 
 
 ![site](https://i.imgur.com/mQfcrNR.png)
 The website's current state. (7/03/2023)
