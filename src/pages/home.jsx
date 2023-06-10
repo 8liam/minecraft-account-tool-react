@@ -46,7 +46,7 @@ export default function SearchFunction () {
         })
         .catch(error => {
             
-            setError(`Username ${input.value} not found., you may need to request access to the api server temporarily to search. https://cors-anywhere.herokuapp.com/corsdemo`)
+            setError(`Username ${input.value} not found., you may need to request access to the api server temporarily to search.`)
             setUserId(null);
             setUsername(null);
             setSkinBase64(null);
@@ -73,10 +73,8 @@ export default function SearchFunction () {
                         </div>
                     </div>
                     <div className="col-md-6 info" id="history">
-                    
-                    
                         {isLoading && <h1>Loading...</h1>}
-                        {!isLoading && error && <h1><span className="warning">{error}</span></h1>}
+                        {!isLoading && error && <h1><span className="warning">{error} <a>https://cors-anywhere.herokuapp.com/corsdemo</a></span></h1>}
                         {!isLoading && userId && (
                         <>
                         <div className="bordered-box-rounded">
