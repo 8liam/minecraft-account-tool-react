@@ -45,7 +45,8 @@ export default function SearchFunction () {
 
         })
         .catch(error => {
-            setError(`Username ${input.value} not found.`)
+            
+            setError(`Username ${input.value} not found., you may need to request access to the api server temporarily to search. https://cors-anywhere.herokuapp.com/corsdemo`)
             setUserId(null);
             setUsername(null);
             setSkinBase64(null);
